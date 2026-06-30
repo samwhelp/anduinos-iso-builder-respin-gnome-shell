@@ -864,7 +864,8 @@ EOF
 EOF
 	judge "Generate README.diskdefines"
 
-	local DATE=$(TZ="UTC" date +"%y%m%d%H%M")
+	##local DATE=$(TZ="UTC" date +"%y%m%d%H%M")
+	local DATE=$(date +"%y%m%d%H%M")
 	cat << EOF > "${DISTRO_ISO_DIR_PATH}/README.md"
 # ${TARGET_BUSINESS_NAME} ${TARGET_BUILD_VERSION}
 
