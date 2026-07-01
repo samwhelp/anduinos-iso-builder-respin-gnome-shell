@@ -43,3 +43,17 @@ function core_var_dump () {
 	judge "Dump variable"
 
 }
+
+function core_args_dump () {
+
+	print_info "Dump args"
+
+	echo "TARGET_UBUNTU_VERSION=${TARGET_UBUNTU_VERSION}"
+	echo "APT_SOURCE=${APT_SOURCE}"
+	echo "TARGET_NAME=${TARGET_NAME}"
+	echo "TARGET_BUSINESS_NAME=${TARGET_BUSINESS_NAME}"
+	echo "TARGET_BUILD_VERSION=${TARGET_BUILD_VERSION}"
+
+	judge "Dump args"
+
+}

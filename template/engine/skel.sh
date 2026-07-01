@@ -34,3 +34,5 @@ source "${LIBS_DIR_PATH}/controller/init.sh"
 echo "${0}"
 
 core_var_dump
+
+core_args_dump
