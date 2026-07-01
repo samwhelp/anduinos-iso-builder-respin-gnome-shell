@@ -35,7 +35,7 @@ function model_skel () {
 
 	core_var_dump
 
-	core_args_dump
+	core_building_var_dump
 
 }
 

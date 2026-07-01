@@ -28,16 +28,12 @@ source "${LIBS_DIR_PATH}/worker/init.sh"
 
 
 #=============================
-# Variables for mods
+# Dump building variables
 #=============================
 
 print_info "Building variables for mods:"
 
-echo "TARGET_UBUNTU_VERSION=${TARGET_UBUNTU_VERSION}"
-echo "APT_SOURCE=${APT_SOURCE}"
-echo "TARGET_NAME=${TARGET_NAME}"
-echo "TARGET_BUSINESS_NAME=${TARGET_BUSINESS_NAME}"
-echo "TARGET_BUILD_VERSION=${TARGET_BUILD_VERSION}"
+core_building_var_dump
 
 
 

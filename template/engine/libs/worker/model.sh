@@ -16,7 +16,7 @@ function core_check_permission () {
 
 function core_var_dump () {
 
-	print_info "Dump variable"
+	print_info "Dump skeleton variables"
 
 	echo "GEAR_DIR_PATH=${GEAR_DIR_PATH}"
 	echo "LIBS_DIR_PATH=${LIBS_DIR_PATH}"
@@ -40,13 +40,13 @@ function core_var_dump () {
 	echo "INSTALLER_PACKAGE_DIR_PATH=${INSTALLER_PACKAGE_DIR_PATH}"
 	echo "INSTALLER_PACKAGE_INSTALL_DIR_PATH=${INSTALLER_PACKAGE_INSTALL_DIR_PATH}"
 
-	judge "Dump variable"
+	judge "Dump skeleton variables"
 
 }
 
-function core_args_dump () {
+function core_building_var_dump () {
 
-	print_info "Dump args"
+	print_info "Dump building variables"
 
 	echo "TARGET_UBUNTU_VERSION=${TARGET_UBUNTU_VERSION}"
 	echo "APT_SOURCE=${APT_SOURCE}"
@@ -54,6 +54,6 @@ function core_args_dump () {
 	echo "TARGET_BUSINESS_NAME=${TARGET_BUSINESS_NAME}"
 	echo "TARGET_BUILD_VERSION=${TARGET_BUILD_VERSION}"
 
-	judge "Dump args"
+	judge "Dump building variables"
 
 }
