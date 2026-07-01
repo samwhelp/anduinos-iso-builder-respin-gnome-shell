@@ -65,3 +65,22 @@ MASTER_ASSET_DIR_PATH="${TEMPLATE_DIR_PATH}/asset"
 MASTER_OVERLAY_DIR_PATH="${MASTER_ASSET_DIR_PATH}/overlay"
 MASTER_PACKAGE_DIR_PATH="${MASTER_ASSET_DIR_PATH}/package"
 MASTER_PACKAGE_INSTALL_DIR_PATH="${MASTER_PACKAGE_DIR_PATH}/install"
+
+
+
+
+#=============================
+# Path / Model / Installer
+#=============================
+
+##
+## * paln / template / installer
+## * plan / template / installer / overlay
+## * plan / template / installer / package
+## * plan / template / installer / package / install
+##
+
+INSTALLER_ASSET_DIR_PATH="${TEMPLATE_DIR_PATH}/installer"
+INSTALLER_OVERLAY_DIR_PATH="${INSTALLER_ASSET_DIR_PATH}/overlay"
+INSTALLER_PACKAGE_DIR_PATH="${INSTALLER_ASSET_DIR_PATH}/package"
+INSTALLER_PACKAGE_INSTALL_DIR_PATH="${INSTALLER_PACKAGE_DIR_PATH}/install"
