@@ -128,7 +128,7 @@ function model_installer_package_install () {
 
 	echo ${run_cmd}
 	${run_cmd}
-	#apt install ${INTERACTIVE} --no-install-recommends ${package_install_list}
+	#apt install ${INTERACTIVE} --install-recommends ${package_install_list}
 	judge "Install Package"
 
 }
