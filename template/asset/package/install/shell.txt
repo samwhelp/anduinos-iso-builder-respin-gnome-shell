@@ -1,10 +1,33 @@
 
 
 ##
-## ## Shell
+## # Shell
+##
+
+
+
+
+##
+## ## Package / Bash
 ##
 
 bash
 bash-completion
+
+
+
+
+##
+## ## Package / Fzf
+##
+
 fzf
+
+
+
+
+##
+## ## Package / Fastfetch
+##
+
 fastfetch
