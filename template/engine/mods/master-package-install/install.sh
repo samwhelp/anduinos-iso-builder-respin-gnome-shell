@@ -38,7 +38,7 @@ source "${LIBS_DIR_PATH}/worker/init.sh"
 ##ASSET_DIR_PATH="${BASE_DIR_PATH}/asset"
 ##OVERLAY_DIR_PATH="${ASSET_DIR_PATH}/overlay"
 ##PACKAGE_DIR_PATH="${ASSET_DIR_PATH}/package"
-##PACKAGE_INSTALL_DIR_PATH="${PACKAGE_DIR_PATH}/install"
+##MASTER_PACKAGE_INSTALL_DIR_PATH="${PACKAGE_DIR_PATH}/install"
 
 
 
@@ -69,7 +69,7 @@ function util_load_list () {
 
 function find_package_install_list_via_loader () {
 	local package_install_list
-	local list_dir_path="${PACKAGE_INSTALL_DIR_PATH}"
+	local list_dir_path="${MASTER_PACKAGE_INSTALL_DIR_PATH}"
 	mkdir -p "$list_dir_path"
 	local item_file_path
 	for item_file_path in $list_dir_path/*.txt; do
@@ -81,7 +81,7 @@ function find_package_install_list_via_loader () {
 
 function find_package_install_list_via_cat () {
 	local package_install_list
-	local list_dir_path="${PACKAGE_INSTALL_DIR_PATH}"
+	local list_dir_path="${MASTER_PACKAGE_INSTALL_DIR_PATH}"
 	mkdir -p "$list_dir_path"
 	local item_file_path
 	for item_file_path in $list_dir_path/*.txt; do
