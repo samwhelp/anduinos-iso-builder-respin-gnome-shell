@@ -37,9 +37,9 @@
 | Project |
 | ------- |
 | [anduinos-iso-builder-template](https://github.com/samwhelp/anduinos-iso-builder-template) |
-| + |
+| `+` |
 | [anduinos-iso-builder-remix-gnome-shell](https://github.com/samwhelp/anduinos-iso-builder-remix-gnome-shell) |
-| = |
+| `=` |
 | [anduinos-iso-builder-respin-gnome-shell](https://github.com/samwhelp/anduinos-iso-builder-respin-gnome-shell) |
 
 
