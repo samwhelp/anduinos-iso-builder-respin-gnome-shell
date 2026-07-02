@@ -452,6 +452,7 @@ function sys_copy_fulfill_scripts_to_chroot () {
 	cp -rfT "${LIBS_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/engine/libs"
 	cp -rfT "${MODS_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/engine/mods"
 	cp -rfT "${MASTER_ASSET_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/asset"
+	[ -d "${INSTALLER_ASSET_DIR_PATH}" ] && cp -rfT "${INSTALLER_ASSET_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/installer" || true
 	print_ok "Copying fulfill scripts to chroot /opt/build"
 
 }
