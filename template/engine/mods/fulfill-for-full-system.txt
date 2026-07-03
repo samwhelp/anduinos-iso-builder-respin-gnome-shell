@@ -84,20 +84,20 @@ anduinos-installer-package-install
 
 
 ##
-## ## Master / Package
-##
-
-master-package-install
-
-
-
-
-##
 ## ## Network
 ##
 
 #base-network-package-install
 base-network-config-install
+
+
+
+
+##
+## ## Master / Package
+##
+
+master-package-install
 
 
 
