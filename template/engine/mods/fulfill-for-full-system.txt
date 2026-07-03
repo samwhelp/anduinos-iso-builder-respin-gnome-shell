@@ -75,6 +75,24 @@ anduinos-desktop-package-install
 
 
 ##
+## ## Installer
+##
+
+anduinos-installer-package-install
+
+
+
+
+##
+## ## Master / Package
+##
+
+master-package-install
+
+
+
+
+##
 ## ## Network
 ##
 
@@ -85,20 +103,18 @@ base-network-config-install
 
 
 ##
-## ## Installer
+## ## Master / File
 ##
 
-anduinos-installer-package-install
-
-
-
-
-##
-## ## Master
-##
-
-master-package-install
 master-file-install
+
+
+
+
+##
+## ## Tail
+##
+
 base-dconf-db-update
 base-gsettings-schema-compile
 
@@ -115,7 +131,7 @@ cleanup-ensure-no-junk
 
 
 ##
-## ## Tail
+## ## Locale
 ##
 
 basic-locale-config-install
