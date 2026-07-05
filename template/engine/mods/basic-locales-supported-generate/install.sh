@@ -72,7 +72,7 @@ function mod_basic_locales_supported_generate_v1 () {
 
 	local code=""
 
-	> /etc/locale.gen
+	## > /etc/locale.gen
 	while IFS="|" read -r code _; do
 		# trim whitespace that may trail the locale code
 		code=$(printf '%s' "${code}" | xargs)
