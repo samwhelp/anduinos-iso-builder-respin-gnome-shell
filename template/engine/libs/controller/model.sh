@@ -461,9 +461,18 @@ function sys_chroot_run_init_locale_to_en_us () {
 
 	print_info "Init locale in chroot ..."
 
+
 	print_info "Run locale-gen"
+
+	echo >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
+	echo "##" >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
+	echo "## ## Head: manually_edited" >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
+	echo "##" >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
+	echo >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
+
 	echo "C.UTF-8 UTF-8" >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
 	echo "en_US.UTF-8 UTF-8" >> "${DISTRO_IMG_DIR_PATH}/etc/locale.gen"
+
 	chroot "${DISTRO_IMG_DIR_PATH}" locale-gen --lang en_US.UTF-8 C.UTF-8
 	judge "Run locale-gen"
 
