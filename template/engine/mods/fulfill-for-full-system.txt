@@ -134,7 +134,7 @@ cleanup-ensure-no-junk
 ## ## Locale
 ##
 
-basic-locale-config-install
+basic-locales-supported-generate
 
 
 
