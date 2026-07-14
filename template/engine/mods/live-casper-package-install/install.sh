@@ -54,7 +54,7 @@ function portal_live_casper_package_install () {
 
 	core_check_permission
 
-	print_info "Installing capser (live-boot) ..."
+	print_info "Installing casper (live-boot) ..."
 	model_live_casper_package_install
 	judge "Install live-boot"
 
