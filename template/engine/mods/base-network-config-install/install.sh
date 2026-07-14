@@ -35,7 +35,9 @@ function mod_config_network_manager () {
 
 	print_info "Configuring network manager ..."
 
-cat << EOF > /etc/NetworkManager/NetworkManager.conf
+	mkdir -p "/etc/NetworkManager"
+
+cat << EOF > "/etc/NetworkManager/NetworkManager.conf"
 [main]
 rc-manager=resolvconf
 plugins=ifupdown,keyfile
@@ -53,7 +55,9 @@ function mod_config_netplan () {
 
 	print_info "Configuring netplan ..."
 
-cat << EOF > /etc/netplan/01-network-manager-all.yaml
+	mkdir -p "/etc/netplan"
+
+cat << EOF > "/etc/netplan/01-network-manager-all.yaml"
 network:
   version: 2
   renderer: NetworkManager
