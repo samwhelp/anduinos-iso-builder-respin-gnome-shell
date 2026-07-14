@@ -700,7 +700,7 @@ function sys_archive_system_to_iso () {
 	judge "Create image directory"
 
 	# copy kernel files
-	print_info "Copying kernel files as /casper/vmlinuz, /casper/initrd and /casper/initrd.gz ..."
+	print_info "Copying kernel files as /casper/vmlinuz, /casper/initrd ..."
 	# Resolve the distro-maintained symlinks — they always point to the
 	# current kernel, so we never pick a stale one left behind by apt.
 	local REAL_VMLINUZ=$(realpath "${DISTRO_IMG_DIR_PATH}/vmlinuz" 2>/dev/null)
@@ -716,12 +716,10 @@ function sys_archive_system_to_iso () {
 	##
 	## Keep both names for remix compatibility:
 	## - Legacy BIOS core.img may embed "/casper/initrd"
-	## - Some remix tools (e.g. Cubic) may rewrite text grub.cfg to "/casper/initrd.gz"
 	## Having both avoids boot mismatch between BIOS and UEFI paths.
 	##
 
 	cp "${REAL_INITRD}" "${DISTRO_ISO_DIR_PATH}/casper/initrd"
-	#cp "${REAL_INITRD}" "${DISTRO_ISO_DIR_PATH}/casper/initrd.gz"
 	judge "Copy kernel files"
 
 	print_info "Generating grub.cfg ..."
