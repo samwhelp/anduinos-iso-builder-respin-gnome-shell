@@ -108,7 +108,6 @@ TARGET_UBUNTU_VERSION="resolute"
 
 # This is the apt source for both the build process and the live system.
 # It can be any Ubuntu mirror that you prefer.
-# The default is the Aiursoft mirror.
 # You can change it to any other mirror that you prefer.
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
 APT_SOURCE="http://archive.ubuntu.com/ubuntu/"
@@ -147,7 +146,7 @@ TARGET_PACKAGE_REMOVE="
 # AnduinOS APT config package name (can also be anduinos-apt-config-dev).
 APT_CONFIG_PACKAGE="anduinos-apt-config"
 
-# APKG server URL for AnduinOS-branded overlay packages (dev: apkg-dev.aiursoft.com).
+# APKG server URL for AnduinOS-branded overlay packages.
 APKG_SERVER="https://packages.anduinos.com"
 
 # GPG certificate name on the APKG server (used to download and verify the repo).
