@@ -81,6 +81,14 @@ cd anduinos-iso-builder-respin-gnome-shell
 
 ## Usage
 
+* [Help](#help)
+* [Prepare](#prepare)
+* [Build](#build)
+* [Clean](#clean)
+
+
+
+
 ## Help
 
 run
