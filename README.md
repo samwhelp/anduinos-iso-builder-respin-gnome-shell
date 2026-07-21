@@ -146,7 +146,7 @@ make build
 
 ## Clean
 
-Run to clean.
+Run to clean up previous builds.
 
 ``` sh
 make clean
