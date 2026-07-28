@@ -1,35 +1,35 @@
 #!/usr/bin/env bash
 
 
-#=============================
+################################################################################
 # Set up the environment
-#=============================
+################################################################################
 
 set -e						# exit on error
 set -o pipefail				# exit on pipeline error
 set -u						# treat unset variable as error
 
 
-#=============================
+################################################################################
 # Base Path
-#=============================
+################################################################################
 
 BASE_DIR_PATH="$(dirname "$(realpath "${0}")")"
 LIBS_DIR_PATH="${BASE_DIR_PATH}/libs"
 
 
-#=============================
+################################################################################
 # Init
-#=============================
+################################################################################
 
-source "${LIBS_DIR_PATH}/controller/init.sh"
-
-
+source "${LIBS_DIR_PATH}/domain/controller/init.sh"
 
 
-#=============================
+
+
+################################################################################
 # Model
-#=============================
+################################################################################
 
 function bind_signal () {
 
@@ -82,9 +82,11 @@ function mount_folders () {
 
 	print_info "Copying fulfill scripts to chroot /opt/build ..."
 	mkdir -p "${DISTRO_IMG_DIR_PATH}/opt/build/template/engine"
+	[ -d "${ARGS_DIR_PATH}" ] && cp -rfT "${ARGS_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/engine/args" || true
 	cp -rfT "${LIBS_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/engine/libs"
 	cp -rfT "${MODS_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/engine/mods"
 	cp -rfT "${MASTER_ASSET_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/asset"
+	[ -d "${INSTALLER_ASSET_DIR_PATH}" ] && cp -rfT "${INSTALLER_ASSET_DIR_PATH}" "${DISTRO_IMG_DIR_PATH}/opt/build/template/installer" || true
 	print_ok "Copying fulfill scripts to chroot /opt/build"
 
 }
@@ -229,11 +231,12 @@ function build_iso () {
 	#cp "${REAL_INITRD}" "${DISTRO_ISO_DIR_PATH}/casper/initrd.gz"
 	judge "Copy kernel files"
 
-	print_info "Generating grub.cfg ..."
+	print_info "Save build args ..."
 	touch "${DISTRO_ISO_DIR_PATH}/${TARGET_NAME}"
-	cp "${LIBS_DIR_PATH}/args.sh" "${DISTRO_ISO_DIR_PATH}/${TARGET_NAME}"
-	judge "Copy build args to disk"
+	raw_building_var_dump | tee "${DISTRO_ISO_DIR_PATH}/${TARGET_NAME}"
+	judge "Save build args"
 
+	print_info "Generating grub.cfg ..."
 	# Configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
 	local TRY_TEXT="Try or Install ${TARGET_BUSINESS_NAME}"
 	local TOGO_TEXT="${TARGET_BUSINESS_NAME} To Go (Persistent on USB)"
@@ -407,7 +410,6 @@ This image is built with the following configurations:
 - **Version**: ${TARGET_BUILD_VERSION}
 - **Date**: ${DATE}
 
-${TARGET_BUSINESS_NAME} is distributed with GPLv3 license. You can find the license on [GPL-v3](https://github.com/aiursoftweb/anduinos-2/blob/master/LICENSE).
 
 ## Please verify the checksum!!!
 
@@ -427,7 +429,6 @@ Press F12 to enter the boot menu when you start your computer. Select the USB dr
 
 ## More information
 
-For detailed instructions, please visit [${TARGET_BUSINESS_NAME} Document](https://docs.anduinos.com/Install/System-Requirements.html).
 EOF
 
 	pushd "${DISTRO_ISO_DIR_PATH}"
@@ -474,13 +475,24 @@ EOF
 	/bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
 	judge "Create md5sum.txt"
 
+	local build_iso_file_main_name="${TARGET_NAME}"
+	local build_iso_file_name="${build_iso_file_main_name}.iso"
+	local build_iso_file_path="${WORK_DIR_PATH}/${build_iso_file_name}"
+
+	local dist_iso_file_main_name="${TARGET_NAME}-${TARGET_BUILD_VERSION}-${TARGET_ARCH}-${DATE}"
+	local dist_iso_file_name="${dist_iso_file_main_name}.iso"
+	local dist_iso_file_path="${DIST_DIR_PATH}/${dist_iso_file_name}"
+
+	local sha256_file_name="${dist_iso_file_main_name}.sha256"
+	local sha256_file_path="${DIST_DIR_PATH}/${sha256_file_name}"
+
 	print_info "Creating iso image on ${WORK_DIR_PATH}/${TARGET_NAME}.iso ..."
 	xorriso \
 		-as mkisofs \
 		-r -J \
 		-iso-level 3 \
 		-full-iso9660-filenames \
-		-volid "${TARGET_NAME}" \
+		-volid "${TARGET_ISO_VOLID}" \
 		-eltorito-boot boot/grub/bios.img \
 			-no-emul-boot \
 			-boot-load-size 4 \
@@ -492,7 +504,7 @@ EOF
 			-e EFI/efiboot.img \
 			-no-emul-boot \
 			-append_partition 2 0xef isolinux/efiboot.img \
-		-output "${WORK_DIR_PATH}/${TARGET_NAME}.iso" \
+		-output "${build_iso_file_path}" \
 		-m "isolinux/efiboot.img" \
 		-m "isolinux/bios.img" \
 		-graft-points \
@@ -503,14 +515,14 @@ EOF
 
 	judge "Create iso image"
 
-	print_info "Moving iso image to ${DIST_DIR_PATH}/${TARGET_BUSINESS_NAME}-${TARGET_BUILD_VERSION}-${DATE}.iso ..."
+	print_info "Moving iso image to ${dist_iso_file_path} ..."
 	mkdir -p "${DIST_DIR_PATH}"
-	mv "${WORK_DIR_PATH}/${TARGET_NAME}.iso" "${DIST_DIR_PATH}/${TARGET_BUSINESS_NAME}-${TARGET_BUILD_VERSION}-${DATE}.iso"
+	mv "${build_iso_file_path}" "${dist_iso_file_path}"
 	judge "Move iso image"
 
 	print_info "Generating sha256 checksum ..."
-	local HASH=$(sha256sum "${DIST_DIR_PATH}/${TARGET_BUSINESS_NAME}-${TARGET_BUILD_VERSION}-${DATE}.iso" | cut -d ' ' -f 1)
-	echo "SHA256: ${HASH}" > "${DIST_DIR_PATH}/${TARGET_BUSINESS_NAME}-${TARGET_BUILD_VERSION}-${DATE}.sha256"
+	local HASH=$(sha256sum "${dist_iso_file_path}" | cut -d ' ' -f 1)
+	echo "SHA256: ${HASH}" | tee "${sha256_file_path}" > /dev/null 2>&1
 	judge "Generate sha256 checksum"
 
 	popd
@@ -532,9 +544,9 @@ function umount_on_exit () {
 
 
 
-#=============================
+################################################################################
 # Main
-#=============================
+################################################################################
 
 cd "${WORK_DIR_PATH}"
 core_check_permission
