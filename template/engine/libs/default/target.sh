@@ -47,7 +47,7 @@ TARGET_BUSINESS_NAME="AnduinOS"
 TARGET_BUILD_VERSION="2.0.0"
 
 # For xorriso -volid
-TARGET_ISO_VOLID="AnduinOS"
+TARGET_ISO_VOLID="ANDUINOS"
 
 ################################################################################
 # Installer customization

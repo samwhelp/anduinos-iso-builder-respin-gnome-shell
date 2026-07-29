@@ -244,10 +244,10 @@ function sys_create_core_system () {
 	judge "Create build directory"
 
 
-	print_info "Calling debootstrap to download base debian system ..."
-	#debootstrap  --arch=amd64 --variant=minbase --include=ca-certificates,wget,dbus "${TARGET_UBUNTU_VERSION}" "${DISTRO_IMG_DIR_PATH}" "${APT_SOURCE}"
-	debootstrap  --arch=amd64 --variant=minbase --include=ca-certificates,openssl,console-setup-linux,console-setup,locales,tzdata,wget,dbus "${TARGET_UBUNTU_VERSION}" "${DISTRO_IMG_DIR_PATH}" "${APT_SOURCE}"
-	judge "Download base system"
+	print_info "Creating base system via debootstrap ..."
+	echo debootstrap --arch=amd64 --variant=minbase --include=ca-certificates,openssl,console-setup-linux,console-setup,locales,tzdata,whiptail,wget,dbus "${TARGET_UBUNTU_VERSION}" "${DISTRO_IMG_DIR_PATH}" "${APT_SOURCE}"
+	debootstrap --arch=amd64 --variant=minbase --include=ca-certificates,openssl,console-setup-linux,console-setup,locales,tzdata,whiptail,wget,dbus "${TARGET_UBUNTU_VERSION}" "${DISTRO_IMG_DIR_PATH}" "${APT_SOURCE}"
+	judge "Creating base system via debootstrap"
 
 }
 
@@ -1002,7 +1002,7 @@ EOF
 		-r -J \
 		-iso-level 3 \
 		-full-iso9660-filenames \
-		-volid "${TARGET_ISO_VOLID}" \
+		-volid "${TARGET_ISO_VOLID^^}" \
 		-eltorito-boot boot/grub/bios.img \
 			-no-emul-boot \
 			-boot-load-size 4 \
@@ -1032,7 +1032,7 @@ EOF
 
 	print_info "Generating sha256 checksum ..."
 	local HASH=$(sha256sum "${dist_iso_file_path}" | cut -d ' ' -f 1)
-	echo "SHA256: ${HASH}" | tee "${sha256_file_path}" > /dev/null 2>&1
+	echo "${HASH}  ${dist_iso_file_name}" | tee "${sha256_file_path}" > /dev/null 2>&1
 	judge "Generate sha256 checksum"
 
 	popd
