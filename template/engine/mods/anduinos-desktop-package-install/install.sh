@@ -33,7 +33,7 @@ source "${LIBS_DIR_PATH}/domain/worker/init.sh"
 
 function model_anduinos_desktop_package_install () {
 
-	apt install ${INTERACTIVE} \
+	apt install -y \
 		anduinos-desktop \
 		anduinos-desktop-apps \
 		anduinos-gnome-extensions \

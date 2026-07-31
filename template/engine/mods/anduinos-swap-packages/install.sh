@@ -37,7 +37,7 @@ function model_anduinos_swap_packages () {
 	## ## Install AnduinOS swap packages
 	##
 
-	apt install ${INTERACTIVE} \
+	apt install -y \
 		${APT_CONFIG_PACKAGE} \
 		anduinos-archive-keyring \
 		base-files \

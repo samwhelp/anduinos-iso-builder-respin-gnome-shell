@@ -33,7 +33,7 @@ source "${LIBS_DIR_PATH}/domain/worker/init.sh"
 
 function model_anduinos_installer_package_install () {
 
-	apt install ${INTERACTIVE} \
+	apt install -y \
 		anduinos-installer-config \
 	--no-install-recommends
 

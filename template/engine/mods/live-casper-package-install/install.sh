@@ -33,7 +33,7 @@ source "${LIBS_DIR_PATH}/domain/worker/init.sh"
 
 function model_live_casper_package_install () {
 
-	apt install ${INTERACTIVE} \
+	apt install -y \
 		casper \
 		discover \
 		laptop-detect \
